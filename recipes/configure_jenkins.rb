@@ -5,8 +5,8 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 git node['jenkins']['master']['home'] do
-  repository node['dcar_jenkins']['backup_repo']
-  revision node['dcar_jenkins']['backup_branch']
+  repository node['citius_jenkins']['backup_repo']
+  revision node['citius_jenkins']['backup_branch']
   enable_checkout false
   user 'root'
   group 'root'
