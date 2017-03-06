@@ -28,7 +28,7 @@ slave_nodes.each do |each_slave|
 
   if node['platform'] == 'rhel' || node['platform'] == 'redhat' || node['platform'] == 'centos'
     slave = node['citius_jenkins']['linux_slaves']
-
+	
     jenkins_slave slavename do
       description      slave['description'] if slave['description']
       remote_fs        slave['remote_jenkins_dir'] if slave['remote_jenkins_dir']
@@ -38,7 +38,7 @@ slave_nodes.each do |each_slave|
       in_demand_delay  slave['idle_delay'] if slave['idle_delay']
       idle_delay       slave['idle_delayname'] if slave['idle_delayname']
       user             slave['user'] if slave['user']
-      labels           slave['slave_labels'] if slave['slave_labels']
+      labels           [each_slave['slave_labels']]
     end
 
     tag('slave@' + slavename)

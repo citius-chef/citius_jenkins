@@ -48,6 +48,7 @@ if master_node.length == 1
 		  execute 'installing the service' do
 			command "nohup #{dir}/" + startup_script + " >#{log} 2>&1 < #{log} &"
 			cwd node['citius_jenkins']['service_dir']
+			not_if 'ps -eaf|grep jenkins'
 		  end
 
 		  ruby_block 'wait for service to install' do
