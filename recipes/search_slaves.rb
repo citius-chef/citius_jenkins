@@ -38,7 +38,7 @@ slave_nodes.each do |each_slave|
       in_demand_delay  slave['idle_delay'] if slave['idle_delay']
       idle_delay       slave['idle_delayname'] if slave['idle_delayname']
       user             slave['user'] if slave['user']
-      labels           slave['labels'] if slave['labels']
+      labels           slave['slave_labels'] if slave['slave_labels']
     end
 
     tag('slave@' + slavename)
