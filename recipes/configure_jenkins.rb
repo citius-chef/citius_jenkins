@@ -25,8 +25,8 @@ end
 slave_port = node['citius_jenkins']['jnlp_slave_port_in_master']
 bash 'change slave agent port num' do
   code <<-EOH
-    sed -i.bak 's/<slaveAgentPort>.*<\\\/slaveAgentPort>/<slaveAgentPort>#{slave_port}<\\/slaveAgentPort>/g' /data/jenkins/config.xml
+    sed -i.bak 's/<slaveAgentPort>.*<\\\/slaveAgentPort>/<slaveAgentPort>#{slave_port}<\\/slaveAgentPort>/g' /var/lib/jenkins/config.xml
   EOH
-  not_if "cat /data/jenkins/config.xml | grep '<slaveAgentPort>#{slave_port}<\\/slaveAgentPort>'"
+  not_if "cat /var/lib/jenkins/config.xml | grep '<slaveAgentPort>#{slave_port}<\\/slaveAgentPort>'"
   notifies :execute, 'jenkins_command[safe-restart]', :immediately
 end
