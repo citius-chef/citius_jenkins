@@ -15,7 +15,7 @@ default['citius_jenkins']['log_file'] 		= node['citius_jenkins']['service_dir'] 
 
 default['citius_jenkins']['linux_slaves'] = {
   'description' => 'multiple ten description',
-  'remote_jenkins_dir' => '/home/jenkins',
+  'remote_jenkins_dir' => '/var/jenkins_service',
   'executors' => 3,
   'usage_mode' => 'normal', # 'normal' or 'exclusive'
   'availability' => 'always', # 'always' or 'demand'

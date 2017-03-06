@@ -21,8 +21,8 @@ ruby_block 'set the service user credentials' do
 end
 
 # creating windows slaves in master
-slave_nodes.each do |each_slave|
-  node.override['citius_jenkins']['slave_name'] = each_slave['name'] + '-' + each_slave['platform_family']
+slave_nodes.each do |each_slave|	
+  node.override['citius_jenkins']['slave_name'] = each_slave['slave_labels'] + '-' + each_slave['platform_family']
   slavename = node['citius_jenkins']['slave_name']
   log(slavename + ' is the slave')
 
