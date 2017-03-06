@@ -35,3 +35,17 @@ jenkins_command 'safe-restart' do
   action :nothing
   notifies :run, 'bash[wait for Jenkins to get to ready State]', :immediately
 end
+
+bash 'wait for Jenkins to get to ready State' do
+  user 'root'
+  cwd '/tmp'
+  action :nothing
+  code <<-EOH
+  RUNNING=$(curl -Is http://localhost:#{node['jenkins']['port']} | grep HTTP | awk '{print $2}')
+  until [ $RUNNING = 200 ]; do
+  echo $RUNNING
+  sleep 5
+  RUNNING=$(curl -Is http://localhost:#{node['jenkins']['port']} | grep HTTP | awk '{print $2}')
+  done
+  EOH
+end
