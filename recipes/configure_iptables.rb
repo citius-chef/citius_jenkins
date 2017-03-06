@@ -10,6 +10,9 @@ end
 iptables_rule 'http22' do
   action :enable
 end
+iptables_rule 'http9999' do
+  action :enable
+end
 iptables_rule 'redirect8080' do
   action :enable
 end

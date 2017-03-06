@@ -23,3 +23,4 @@ default['citius_jenkins']['linux_slaves'] = {
   'idle_delay' => 3,
   'labels' => ['linux']
 }
+default['citius_jenkins']['jnlp_slave_port_in_master'] == '9999'
