@@ -25,6 +25,12 @@ slave_nodes.each do |each_slave|
   node.override['citius_jenkins']['slave_name'] = each_slave['slave_labels'] + '-' + each_slave['platform_family']
   slavename = node['citius_jenkins']['slave_name']
   log(slavename + ' is the slave')
+  
+  if each_slave['slave_labels'] == 'deploy-server'
+      executor = 1
+    elsif each_slave['slave_labels'] == 'build-server'
+      executor = 3
+    end
 
   if node['platform'] == 'rhel' || node['platform'] == 'redhat' || node['platform'] == 'centos'
     slave = node['citius_jenkins']['linux_slaves']
@@ -32,7 +38,7 @@ slave_nodes.each do |each_slave|
     jenkins_slave slavename do
       description      slave['description'] if slave['description']
       remote_fs        slave['remote_jenkins_dir'] if slave['remote_jenkins_dir']
-      executors        slave['executors'] if slave['executors']
+      executors        executor
       usage_mode       slave['usage_mode'] if slave['usage_mode']
       availability     slave['availability'] if slave['availability']
       in_demand_delay  slave['idle_delay'] if slave['idle_delay']
