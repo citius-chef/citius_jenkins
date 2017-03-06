@@ -20,7 +20,6 @@ default['citius_jenkins']['linux_slaves'] = {
   'usage_mode' => 'normal', # 'normal' or 'exclusive'
   'availability' => 'always', # 'always' or 'demand'
   'in_demand_delay' => 1,
-  'idle_delay' => 3,
-  'labels' => ['linux']
+  'idle_delay' => 3
 }
 default['citius_jenkins']['jnlp_slave_port_in_master'] == '9999'
