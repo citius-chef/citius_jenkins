@@ -30,3 +30,8 @@ bash 'change slave agent port num' do
   not_if "cat /var/lib/jenkins/config.xml | grep '<slaveAgentPort>#{slave_port}<\\/slaveAgentPort>'"
   notifies :execute, 'jenkins_command[safe-restart]', :immediately
 end
+
+jenkins_command 'safe-restart' do
+  action :nothing
+  notifies :run, 'bash[wait for Jenkins to get to ready State]', :immediately
+end
