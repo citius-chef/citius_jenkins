@@ -7,7 +7,7 @@ default['citius_jenkins']['service_dir']      = if node['platform_family'] == 'w
 											  else
 											    '/var/jenkins_service'
 											  end
-default['citius_jenkins']['master'] 		= '52.229.24.180'
+default['citius_jenkins']['master'] 		= '52.229.36.41'
 default['citius_jenkins']['master_tag']     = 'master'
 default['citius_jenkins']['slave_tag']      = 'slave'
 default['citius_jenkins']['slave_name'] 	= node['hostname'] + '-' + node['platform_family']
