@@ -13,7 +13,7 @@ default['citius_jenkins']['slave_tag']      = 'slave'
 default['citius_jenkins']['slave_name'] 	= node['hostname'] + '-' + node['platform_family']
 default['citius_jenkins']['log_file'] 		= node['citius_jenkins']['service_dir'] + '/slave_connection.log'
 
-default['citius_jenkins']['linux_slaves'] = {
+default['citius_jenkins']['slaves'] = {
   'description' => 'multiple ten description',
   'remote_jenkins_dir' => '/var/jenkins_service',
   'executors' => 3,

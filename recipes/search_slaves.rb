@@ -26,27 +26,31 @@ slave_nodes.each do |each_slave|
   slavename = node['citius_jenkins']['slave_name']
   log(slavename + ' is the slave')
   
-  if each_slave['slave_labels'] == 'deploy-server'
-      executor = 1
-    elsif each_slave['slave_labels'] == 'build-server'
-      executor = 3
-    end
-
-  if node['platform'] == 'rhel' || node['platform'] == 'redhat' || node['platform'] == 'centos'
-    slave = node['citius_jenkins']['linux_slaves']
-	
-    jenkins_slave slavename do
-      description      slave['description'] if slave['description']
-      remote_fs        slave['remote_jenkins_dir'] if slave['remote_jenkins_dir']
-      executors        executor
-      usage_mode       slave['usage_mode'] if slave['usage_mode']
-      availability     slave['availability'] if slave['availability']
-      in_demand_delay  slave['idle_delay'] if slave['idle_delay']
-      idle_delay       slave['idle_delayname'] if slave['idle_delayname']
-      user             slave['user'] if slave['user']
-      labels           [each_slave['slave_labels']]
-    end
-
-    tag('slave@' + slavename)
+  if each_slave['slave_labels'] == 'build-server'
+    executor = 3
+  else
+    executor = 1
   end
+
+  if each_slave['slave_labels'] == 'test-server'
+    remote_fs = 'c:\\jenkins_service'
+  else 
+    remote_fs = slave['remote_jenkins_dir']
+  end
+  
+  slave = node['citius_jenkins']['slaves']
+
+  jenkins_slave slavename do
+    description      slave['description'] if slave['description']
+    remote_fs        remote_fs
+    executors        executor
+    usage_mode       slave['usage_mode'] if slave['usage_mode']
+    availability     slave['availability'] if slave['availability']
+    in_demand_delay  slave['idle_delay'] if slave['idle_delay']
+    idle_delay       slave['idle_delayname'] if slave['idle_delayname']
+    user             slave['user'] if slave['user']
+    labels           [each_slave['slave_labels']]
+  end
+
+tag('slave@' + slavename)
 end
