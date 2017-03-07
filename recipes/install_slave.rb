@@ -4,6 +4,8 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
  
+windows_user = data_bag_item('pipeline', 'jenkins_user')
+ 
 master_tag = node['citius_jenkins']['master_tag']
  
 # finding the master from chef server
@@ -64,6 +66,33 @@ if master_node.length == 1
 			  end
 			end
 		  end
+		elsif node['platform'] == 'windows'
+		  user windows_user['username'] do
+			password windows_user['password']
+		  end
+
+		  group "Administrators" do
+			members windows_user['username']
+			append true
+			action :modify
+		  end
+		  
+		  ruby_block 'set jenkins master details' do
+			block do
+			  node.default['jenkins']['master']['host'] = master
+			  node.default['jenkins']['master']['port'] = 80
+			  node.default['jenkins']['master']['endpoint'] = "http://#{node['jenkins']['master']['host']}:#{node['jenkins']['master']['port']}"			  
+			  node.save
+			end
+		  end
+
+		  directory node['citius_jenkins']['service_dir']
+		  
+		  jenkins_windows_slave slavename do
+            remote_fs node['citius_jenkins']['service_dir']
+            user windows_user['username']
+            password windows_user['password']
+          end
 		end
 	end
 end

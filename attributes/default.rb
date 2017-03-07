@@ -3,7 +3,7 @@ default['citius_jenkins']['deploy_backup']  = true
 default['citius_jenkins']['backup_branch']    = 'master'
 default['citius_jenkins']['backup_repo']      = 'https://github.com/pratikghodekar/jenkins_backup.git'
 default['citius_jenkins']['service_dir']      = if node['platform_family'] == 'windows'
-												'c:\jenkins_slave'
+												'c:\\jenkins_service'
 											  else
 											    '/var/jenkins_service'
 											  end
