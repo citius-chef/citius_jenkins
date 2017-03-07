@@ -48,12 +48,12 @@ if master_node.length == 1
 		  execute 'installing the service' do
 			command "nohup #{dir}/" + startup_script + " >#{log} 2>&1 < #{log} &"
 			cwd node['citius_jenkins']['service_dir']
-			not_if 'ps -eaf|grep jenkins'
+			not_if 'ps -eaf|grep [j]enkins'
 		  end
 
 		  ruby_block 'wait for service to install' do
 			block do
-			  sleep(150)
+			  sleep(30)
 			  text = `cat #{log}`
 			  if text.include? 'INFO: Connected'
 				puts 'jenkins slave service is running'
