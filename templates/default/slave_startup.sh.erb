@@ -1,2 +1,2 @@
 
-java -jar <%= @slave_path -%> -jnlpUrl <%= @url -%>
+java -Dhudson.util.ProcessTree.disable=true -jar <%= @slave_path -%> -jnlpUrl <%= @url -%>
