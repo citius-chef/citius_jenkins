@@ -40,17 +40,18 @@ slave_nodes.each do |each_slave|
   
   slave = node['citius_jenkins']['slaves']
 
-  jenkins_slave slavename do
-    description      slave['description'] if slave['description']
-    remote_fs        remote_fs
-    executors        executor
-    usage_mode       slave['usage_mode'] if slave['usage_mode']
-    availability     slave['availability'] if slave['availability']
-    in_demand_delay  slave['idle_delay'] if slave['idle_delay']
-    idle_delay       slave['idle_delayname'] if slave['idle_delayname']
-    user             slave['user'] if slave['user']
-    labels           [each_slave['slave_labels']]
+  if node['platform'] == 'rhel' || node['platform'] == 'redhat' || node['platform'] == 'centos'
+    jenkins_slave slavename do
+      description      slave['description'] if slave['description']
+      remote_fs        remote_fs
+      executors        executor
+      usage_mode       slave['usage_mode'] if slave['usage_mode']
+      availability     slave['availability'] if slave['availability']
+      in_demand_delay  slave['idle_delay'] if slave['idle_delay']
+      idle_delay       slave['idle_delayname'] if slave['idle_delayname']
+      user             slave['user'] if slave['user']
+      labels           [each_slave['slave_labels']]
+    end
   end
-
 tag('slave@' + slavename)
 end
