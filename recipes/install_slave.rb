@@ -5,7 +5,6 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
  
 windows_user = data_bag_item('pipeline', 'jenkins_admin')
-jenkins_user = data_bag_item('pipeline', 'jenkins_user')
  
 master_tag = node['citius_jenkins']['master_tag']
  
@@ -91,8 +90,8 @@ if master_node.length == 1
 		  
 		  jenkins_windows_slave slavename do
             remote_fs node['citius_jenkins']['service_dir']
-            user jenkins_user['username']
-            password jenkins_user['password']
+            user windows_user['username']
+            password windows_user['password']
           end
 		end
 	end
