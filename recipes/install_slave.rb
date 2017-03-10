@@ -94,6 +94,8 @@ if master_node.length == 1
             password windows_user['password']
 			labels [node['slave_labels']]
           end
+		  
+		  log('slave_labels : ' + node['slave_labels'])
 		end
 	end
 end
