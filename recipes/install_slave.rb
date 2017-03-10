@@ -92,6 +92,7 @@ if master_node.length == 1
             remote_fs node['citius_jenkins']['service_dir']
             user windows_user['username']
             password windows_user['password']
+			labels [node['slave_labels']]
           end
 		end
 	end
